@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn1svhsxqbfj5"]
+
+[ext_resource type="Script" path="res://WOOD.gd" id="1_bi75j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i8yyj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bw22f"]
+size = Vector3(3, 3, 3)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_bi75j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.24912, 0, 0, 0, 0.067623, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_i8yyj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.218523, 0.00699294, 0.468895, 0, 0.0660361, -0.215366, -0.119618, 0.012775, 0.856595, 0.291954, 0, 0)
+mesh = SubResource("BoxMesh_i8yyj")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_bw22f")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

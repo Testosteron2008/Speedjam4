@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpbr7ygmv4j1s"]
+
+[ext_resource type="Script" path="res://Node3D.gd" id="1_aec1n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6jc3"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n76hu"]
+size = Vector3(1.43054, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e0ave"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_aec1n")
+
+[node name="MeshInstance3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338577, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_f6jc3")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("BoxShape3D_n76hu")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(200, 25)
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+offset_right = 200.0
+offset_bottom = 27.0
+step = 1.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1776, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_e0ave")
+
+[connection signal="body_entered" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_exited"]
