@@ -1,29 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpbr7ygmv4j1s"]
+[gd_scene load_steps=7 format=3 uid="uid://cpbr7ygmv4j1s"]
 
 [ext_resource type="Script" path="res://Node3D.gd" id="1_aec1n"]
+[ext_resource type="PackedScene" uid="uid://b1rstsjh1txo1" path="res://Generator.fbx" id="2_uo2dl"]
+[ext_resource type="AudioStream" uid="uid://wj7p4hj5e7gl" path="res://generator.wav" id="3_kufvr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6jc3"]
 albedo_color = Color(0, 1, 1, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_n76hu"]
-size = Vector3(1.43054, 1, 1)
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_e0ave"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n76hu"]
+size = Vector3(1.43054, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_aec1n")
 
 [node name="MeshInstance3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338577, 0)
+visible = false
 use_collision = true
 material = SubResource("StandardMaterial3D_f6jc3")
-
-[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
-shape = SubResource("BoxShape3D_n76hu")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(200, 25)
@@ -38,5 +35,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1776, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_e0ave")
 
-[connection signal="body_entered" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="MeshInstance3D/Area3D" to="." method="_on_area_3d_body_exited"]
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338577, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("BoxShape3D_n76hu")
+
+[node name="Root Scene" parent="." instance=ExtResource("2_uo2dl")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.94409, 0)
+stream = ExtResource("3_kufvr")
+max_distance = 10.0
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

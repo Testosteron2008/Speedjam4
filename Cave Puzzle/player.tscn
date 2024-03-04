@@ -1,11 +1,213 @@
-[gd_scene load_steps=4 format=3 uid="uid://cal8ipoa6s4cv"]
+[gd_scene load_steps=30 format=3 uid="uid://cal8ipoa6s4cv"]
 
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_pibbq"]
+[ext_resource type="PackedScene" uid="uid://lm1y4n7dpill" path="res://Wrench.fbx" id="2_aa7tj"]
+[ext_resource type="Texture2D" uid="uid://cxg6tk51a2gh7" path="res://Wrench Diffuse.jpg" id="3_0imc6"]
+[ext_resource type="PackedScene" uid="uid://c8y7lhugt7jqs" path="res://wooden board 3.fbx" id="4_tcata"]
+[ext_resource type="AudioStream" uid="uid://cdyh6bgfr1g6e" path="res://metal_hit.wav" id="5_271hs"]
+[ext_resource type="AudioStream" uid="uid://ds3yscc0na16b" path="res://wood_hit.wav" id="6_spyxt"]
+[ext_resource type="AudioStream" uid="uid://btom6ac2v4ars" path="res://footstep_1.wav" id="7_o3jst"]
+[ext_resource type="AudioStream" uid="uid://pdrm72gi8bx0" path="res://footstep_2.wav" id="8_xhnji"]
+[ext_resource type="AudioStream" uid="uid://bujcvi177wjk3" path="res://footstep_3.wav" id="9_6m50m"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_04w6m"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l04ru"]
+albedo_texture = ExtResource("3_0imc6")
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y8dys"]
+
+[sub_resource type="Animation" id="Animation_74gf1"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Camera3D/Root Scene/RootNode/Key:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.784584, 0.757858),
+"update": 0,
+"values": [Vector3(-0.0347849, 0.992646, -4.47707), Vector3(-0.035, 2.483, -4.477)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D/Camera3D/Root Scene2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.784584, 0.812252),
+"update": 0,
+"values": [Vector3(-0.705, -0.177, -0.689), Vector3(-0.705, -0.137, -0.689)]
+}
+
+[sub_resource type="Animation" id="Animation_3wabf"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Camera3D/Root Scene/RootNode/Key:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.535887, 1),
+"update": 0,
+"values": [Vector3(0.445, -0.077, -21.792), Vector3(-0.0347849, 0.992646, -4.47707)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D/Camera3D/Root Scene/RootNode/Key:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.466517, 1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_wrench_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4kj7c"]
+resource_name = "wood_hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Camera3D/Root Scene2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(0.517632, 1, 0.450625),
+"update": 0,
+"values": [Vector3(-0.705, -0.177, -0.689), Vector3(-0.705, -0.177, -1.149), Vector3(-0.705, -0.177, -0.689)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D/Camera3D/Root Scene2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.20428, 0, 0), Vector3(1.20428, 0, 1.5708), Vector3(1.20428, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_wood_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ln74g"]
+resource_name = "footsteps"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"footsteps"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rr7ac"]
+_data = {
+"footsteps": SubResource("Animation_ln74g"),
+"hit": SubResource("Animation_3wabf"),
+"idle": SubResource("Animation_74gf1"),
+"wood_hit": SubResource("Animation_4kj7c")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7854"]
+animation = &"footsteps"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aqimr"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rofve"]
+states/Start/position = Vector2(191, 100)
+states/footsteps/node = SubResource("AnimationNodeAnimation_x7854")
+states/footsteps/position = Vector2(349, 100)
+transitions = ["Start", "footsteps", SubResource("AnimationNodeStateMachineTransition_aqimr")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bkhwk"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ax8c6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xdd7f"]
+animation = &"wood_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n7a45"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uvaot"]
+advance_mode = 2
+advance_condition = &"hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_objth"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bedni"]
+advance_mode = 2
+advance_condition = &"wood hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0gt48"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_33ftb"]
+states/hit/node = SubResource("AnimationNodeAnimation_bkhwk")
+states/hit/position = Vector2(527, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_ax8c6")
+states/idle/position = Vector2(378, 100)
+states/wood_hit/node = SubResource("AnimationNodeAnimation_xdd7f")
+states/wood_hit/position = Vector2(447, 25)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n7a45"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_uvaot"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_objth"), "idle", "wood_hit", SubResource("AnimationNodeStateMachineTransition_bedni"), "wood_hit", "idle", SubResource("AnimationNodeStateMachineTransition_0gt48")]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_pibbq")
@@ -13,11 +215,22 @@ script = ExtResource("1_pibbq")
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562012, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="Node3D/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.414884, -1.10098)
 texture = SubResource("ViewportTexture_04w6m")
+
+[node name="Root Scene" parent="Node3D/Camera3D" instance=ExtResource("2_aa7tj")]
+transform = Transform3D(0.02, 0, 0, 0, 0.0139433, 0.0143382, 0, -0.0143382, 0.0139433, 0.890348, -0.516498, -0.65475)
+visible = false
+
+[node name="Key" parent="Node3D/Camera3D/Root Scene/RootNode" index="0"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -0.0348388, 1.3666, -4.47705)
+surface_material_override/0 = SubResource("StandardMaterial3D_l04ru")
+
+[node name="Root Scene2" parent="Node3D/Camera3D" instance=ExtResource("4_tcata")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.705, -0.166963, -0.689)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_y8dys")
@@ -31,7 +244,51 @@ size = Vector2i(125, 25)
 [node name="Label" type="Label" parent="SubViewport"]
 offset_right = 125.0
 offset_bottom = 23.0
-text = "sex"
+text = "1:05"
 horizontal_alignment = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rr7ac")
+}
+
+[node name="AnimationTree2" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rr7ac")
+}
+tree_root = SubResource("AnimationNodeStateMachine_rofve")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rr7ac")
+}
+tree_root = SubResource("AnimationNodeStateMachine_33ftb")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/hit = false
+parameters/conditions/idle = false
+"parameters/conditions/wood hit" = false
+
+[node name="sfx" type="Node3D" parent="."]
+
+[node name="wrench_hit" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("5_271hs")
+
+[node name="wood_hit" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("6_spyxt")
+
+[node name="footstep1" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("7_o3jst")
+volume_db = -4.685
+
+[node name="footstep2" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("8_xhnji")
+volume_db = -4.685
+
+[node name="footstep3" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("9_6m50m")
+volume_db = -4.685
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Node3D/Camera3D/Root Scene"]
